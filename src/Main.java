@@ -25,6 +25,13 @@ public class Main extends Application {
 	// Variablen deklarieren:
     int restZeitSekunden = 0;
     Timeline zeitLeiste;
+    Label titleLabel;
+    Label countdownAnzeigen;
+    Button startBtn;
+    Button pauseBtn;
+    Button abbruchBtn;
+    VBox minutenVbox;
+    VBox uhrzeitVbox;
     
     // Info an Compiler -> start-Methode von Application überschreiben:
     @Override
@@ -41,33 +48,33 @@ public class Main extends Application {
 //    	   \_____|\____/|_____|  \___|_|  |___/\__\___|_|_|\___|_| |_(_)  
     	
     	// Hinweistext:
-        Label titleLabel = new Label("bis PC sich herunter fährt:");
-        // Style ändern:	 - Schriftgröße; 	  - Fett gedruckt
-        titleLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
-           
- // -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
+        titleLabel = new Label("bis PC sich herunter fährt:");
+        // Style ändern:	 - Schriftgröße; 	  - Fett gedruckt		 - SchriftFarbe
+        titleLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #E6EAF2;");
+        
+// -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
         
         // Label für Text neben dem Textfeld erstellen:
         Label minutenLabel = new Label ("Minuten");
-        minutenLabel.setStyle("-fx-font-size: 12px;");
+        minutenLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: #E6EAF2");
         
-        // Textfeld für MinutenEingabe
+   
+        // Textfeld für MinutenEingabe:
         TextField minutenEingabe = new TextField();    
-        
         // Breite des Eingabefeldes:
         minutenEingabe.setMaxWidth(100);
-        
-        // Schriftgröße für Zeiteingabe:
-        minutenEingabe.setStyle("-fx-font-size: 12px;");
-        
+        // Style ändern:		 - Schriftgröße		  - Hintergrundfarbe			 - TextFarbe 
+        minutenEingabe.setStyle("-fx-font-size: 12px; -fx-background-color: #3A4459; -fx-text-fill: #E6EAF2;");
         // Schrift mittig auslegen:
         minutenEingabe.setAlignment(Pos.CENTER);
         
+        
         // Label und Textfeld in HBox packen:
-        VBox minutenVbox = new VBox(2);
+        minutenVbox = new VBox(2);
         minutenVbox.setAlignment(Pos.CENTER);
-        minutenVbox.setStyle("-fx-background-color: #87CEFA;");
+        minutenVbox.setStyle("-fx-background-color: #2B3345;");
         minutenVbox.setMaxWidth(100);
+        
         
         // Elemente der Hbox hinzufügen:
         minutenVbox.getChildren().addAll(minutenEingabe, minutenLabel); 
@@ -76,25 +83,25 @@ public class Main extends Application {
         
         // Label für Text neben dem Textfeld erstellen:
         Label uhrzeitLabel = new Label ("Uhr");
-        uhrzeitLabel.setStyle("-fx-font-size: 12px;");
+        uhrzeitLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: #E6EAF2");
+        
         
         // Textfeld für Uhrzeit:
         TextField uhrzeitEingabe = new TextField();
-        
         // Breite des Eingabefeldes:
         uhrzeitEingabe.setMaxWidth(100);
-        
-        // Schriftgröße für Zeiteingabe:
-        uhrzeitEingabe.setStyle("-fx-font-size: 12px;");
-        
+        // Schriftgröße + Schriftfarbe für Zeiteingabe:
+        uhrzeitEingabe.setStyle("-fx-font-size: 12px; -fx-background-color: #3A4459; -fx-text-fill: #E6EAF2;");
         // Schrift mittig auslegen:
         uhrzeitEingabe.setAlignment(Pos.CENTER);
         
+        
         // Label und Textfeld in HBox packen:
-        VBox uhrzeitVbox = new VBox(2);
+        uhrzeitVbox = new VBox(2);
         uhrzeitVbox.setAlignment(Pos.CENTER);
-        uhrzeitVbox.setStyle("-fx-background-color: #87CEFA;");
+        uhrzeitVbox.setStyle("-fx-background-color: #2B3345;");
         uhrzeitVbox.setMaxWidth(100);
+        
         
         // Elemente der Hbox hinzufügen:
         uhrzeitVbox.getChildren().addAll(uhrzeitEingabe, uhrzeitLabel); 
@@ -102,32 +109,31 @@ public class Main extends Application {
 // -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
         
         // leeres Label -> zeigt dann den LiveCountdown an:
-        Label countdownAnzeigen = new Label("");
+        countdownAnzeigen = new Label("");
         // Style ändern:	 		- Schriftgröße; 	 - Fett gedruckt;
-        countdownAnzeigen.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
+        countdownAnzeigen.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #4FC3F7;");
+        
+        
         // nicht Anzeigen:
-        countdownAnzeigen.setVisible(false);
-        countdownAnzeigen.setManaged(false);
+        countdownAnzeigenFalse();
 
 // -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   
         
         // Button erstellen:
-        Button startBtn = new Button("Start");
+        startBtn = new Button("Start");
         // Größe in Pixel:	 <->  ↕
         startBtn.setPrefSize(100, 20); 
         
-        Button pauseBtn = new Button("Pause");
+        pauseBtn = new Button("Pause");
         pauseBtn.setPrefSize(100, 20);
         
-        Button abbruchBtn = new Button("Abbrechen");
+        abbruchBtn = new Button("Abbrechen");
         abbruchBtn.setPrefSize(100, 20);
         
-        // vorerst nicht benötigte Buttons ausblenden:
-        pauseBtn.setVisible(false);
-        pauseBtn.setManaged(false);
         
-        abbruchBtn.setVisible(false);
-        abbruchBtn.setManaged(false);
+        // vorerst nicht benötigte Buttons ausblenden:
+        pauseBtnAnzeigenFalse();
+        abbruchBtnAnzeigenFalse();
         
 //=======================================================================================================================
 
@@ -148,8 +154,10 @@ public class Main extends Application {
             	// Sekunde - 1
                 restZeitSekunden--;
                 
-                // volle Minuten berechnen:
-                int minutes = restZeitSekunden / 60;
+                // volle Stunden berechnen (1 Stunde = 3600 Sekunden):
+                int hours = restZeitSekunden / 3600;
+                // Minuten berechnen -> erst die vollen Stunden abziehen (% 3600), dann durch 60:
+                int minutes = (restZeitSekunden % 3600) / 60;
                 // verbleibende RestSekunden:
                 int seconds = restZeitSekunden % 60;
                 
@@ -158,8 +166,8 @@ public class Main extends Application {
                 countdownAnzeigen.setAlignment(Pos.CENTER);
                 // Zentriert mehrzeiligen Text mittig:
                 countdownAnzeigen.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
-                countdownAnzeigen.setText(String.format("Computer fährt herunter in: \n%02d:%02d", minutes, seconds));
-                countdownAnzeigen.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: black;");
+                countdownAnzeigen.setText(String.format("Computer fährt herunter in: \n%02d:%02d:%02d",hours, minutes, seconds));
+                countdownAnzeigen.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #4FC3F7;");
               
                 
             // Wenn Timeline bei 0 angekommen:
@@ -172,10 +180,6 @@ public class Main extends Application {
             }
 	            
 
-
-
-// -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
-        	
         }));
         // Timeline unendlich laufen lassen -> bis gestoppt wird:
         zeitLeiste.setCycleCount(Timeline.INDEFINITE);
@@ -201,56 +205,55 @@ public class Main extends Application {
 //     | |\/| | | ' \ || |  _/ -_) ' \ _ 
 //     |_|  |_|_|_||_\_,_|\__\___|_||_(_)
         
-        	startBtn.setOnAction(e -> {	                                    
+        	startBtn.setOnAction(aktion -> {	                                    
         	// .trim()	-> entfernt leerzeichen am Anfang des Textes
-        	if (!minutenEingabe.getText().trim().isEmpty() && uhrzeitEingabe.getText().isEmpty()) {
+        	if (!minutenEingabe.getText().trim().isEmpty() && uhrzeitEingabe.getText().trim().isEmpty()) {
         		
 	        	// versuche potentiell gefährlichen Code auszuführen:
 	            try {
 	            	// Liest den Text aus Feld und konvertiert in 'int'
-	                int minutes = Integer.parseInt(minutenEingabe.getText());
-	                if (minutes <= 0) {
+	                int minutes = Integer.parseInt(minutenEingabe.getText().trim());
+	                
+	                
+	                // Zahl muss zwischen 1 und 1440 liegen (24 Stunden):
+	                if (minutes <= 0 || minutes > 1440 ) {
 	                	throw new NumberFormatException();
 	                }
 	
 		                restZeitSekunden = minutes * 60;
+		                
+		                // Anzeige aus restZeitSekunden berechnen (minutes ist hier die Eingabe):
+		                int hours = restZeitSekunden / 3600;
+		                int anzeigeMinuten = (restZeitSekunden % 3600) / 60;
 		                int seconds = restZeitSekunden % 60;
-		                
-		                // VBox/Textfeld sperren/freigeben:
-		                minutenVbox.setVisible(false);
-		                minutenVbox.setManaged(false);
-		                
-		                uhrzeitVbox.setVisible(false);
-		                uhrzeitVbox.setManaged(false);
-		                
-		                titleLabel.setVisible(false);
-		                titleLabel.setManaged(false);
-		                
-		                // Buttons sperren/freigeben:
-		                startBtn.setVisible(false);
-		                startBtn.setManaged(false);
-		                
-		                abbruchBtn.setVisible(true);
-		                abbruchBtn.setManaged(true);
-		                
-		                pauseBtn.setVisible(true);
-		                pauseBtn.setManaged(true);
-		                
-		                // Countdown anzeigen:
-		                countdownAnzeigen.setVisible(true);
-		                countdownAnzeigen.setManaged(true);
-		                zeitLeiste.play();
 		                
 		                // Zentriert mehrzeiligen Text mittig:
 		                countdownAnzeigen.setAlignment(Pos.CENTER);
 		                countdownAnzeigen.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
-		                countdownAnzeigen.setText(String.format("Computer fährt herunter in: \n%02d:%02d", minutes, seconds));
-		                countdownAnzeigen.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: black;");
+		                countdownAnzeigen.setText(String.format("Computer fährt herunter in: \n%02d:%02d:%02d",hours, anzeigeMinuten, seconds));
+		                countdownAnzeigen.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #4FC3F7;");
 		                
+		                // VBox/Textfeld sperren/freigeben:
+		                minutenVboxAnzeigenFalse();
+		                uhrzeitVboxAnzeigenFalse();
+		                
+		                // TextLabel sperren/freigeben:
+		                titleLabelAnzeigenFalse();
+		                
+		                // Buttons sperren/freigeben:
+		                startBtnAnzeigenFalse();
+		                abbruchBtnAnzeigenTrue();
+		                pauseBtnAnzeigenTrue();
+		                
+		                // Countdown anzeigen:
+		                countdownAnzeigenTrue();
+		                
+		                // Zeitleiste abspielen:
+		                zeitLeiste.play();
 	                
 	            // Fehlermeldung bei falscher Eingabe:
 	            } catch (NumberFormatException ex) {
-	                Alert alert = new Alert(Alert.AlertType.ERROR, "Bitte eine gültige Zahl größer als 0 eingeben!");
+	                Alert alert = new Alert(Alert.AlertType.ERROR, "Bitte eine Zahl zwischen 1 und 1440 eingeben!");
 	                alert.setHeaderText(null);
 	                alert.showAndWait();
 	                return;
@@ -263,14 +266,14 @@ public class Main extends Application {
 //        | |_| | ' \| '_|_ / -_) |  _|_ 
 //         \___/|_||_|_| /__\___|_|\__(_)
 	            
-        	} else if (!uhrzeitEingabe.getText().trim().isEmpty() && minutenEingabe.getText().isEmpty()) {      
+        	} else if (!uhrzeitEingabe.getText().trim().isEmpty() && minutenEingabe.getText().trim().isEmpty()) {      
         		
                 try {
             		// Aktuelle Lokale Uhrzeit holen:
             		LocalTime aktuelleUhrzeit = LocalTime.now();
             		
     	            // Liest den Text aus TextFeld:
-                    String uhrzeitText = uhrzeitEingabe.getText();
+                    String uhrzeitText = uhrzeitEingabe.getText().trim();
                 	// .split()	-> TextfeldEingabe wird am ":" geteilt:
                 	// wird immer in einem Array gespeichert.
                 	String[] aufteilen = uhrzeitText.split(":");
@@ -284,40 +287,42 @@ public class Main extends Application {
                 	// ChronoUnit berechnet die differenz zwischen der aktuellen SystemZeit und der gewünschten Shutdown Uhrzeit:
                 	// between() gibt immer ein Long zurück
                 	long sekundenBisShutdown = ChronoUnit.SECONDS.between(aktuelleUhrzeit, shutdownUhrzeit);
+                	
+                	
+                	// Wenn Sekunden <= 0 -> neuen Tag dazu rechnen -> Shutdwon nach 00:00 Uhr:
+                  	if (sekundenBisShutdown <=0) {
+                		sekundenBisShutdown += 86400;
+                  	}
+                		
                 	restZeitSekunden = (int)sekundenBisShutdown;
                 	
-	                long seconds = sekundenBisShutdown % 60;
-	                int minutes = restZeitSekunden / 60;
+                	// Anzeige aus restZeitSekunden berechnen:
+                	int hours = restZeitSekunden / 3600;
+                	int minutes = (restZeitSekunden % 3600) / 60;
+	                int seconds = restZeitSekunden % 60;
 	                
-	                // VBox/Textfeld sperren/freigeben:
-	                minutenVbox.setVisible(false);
-	                minutenVbox.setManaged(false);
-	                
-	                uhrzeitVbox.setVisible(false);
-	                uhrzeitVbox.setManaged(false);
-	                
-	                titleLabel.setVisible(false);
-	                titleLabel.setManaged(false);
-	                
-	                // Buttons sperren/freigeben:
-	                startBtn.setVisible(false);
-	                startBtn.setManaged(false);
-	                
-	                abbruchBtn.setVisible(true);
-	                abbruchBtn.setManaged(true);
-	                	                
-	                // Countdown anzeigen:
-	                countdownAnzeigen.setVisible(true);
-	                countdownAnzeigen.setManaged(true);
-	                zeitLeiste.play();
-
 	                // Zentriert mehrzeiligen Text mittig:
 	                countdownAnzeigen.setAlignment(Pos.CENTER);
 	                countdownAnzeigen.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
-	                countdownAnzeigen.setText(String.format("Computer fährt herunter in: \n%02d:%02d", minutes, seconds));
-	                countdownAnzeigen.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: black;");
+	                countdownAnzeigen.setText(String.format("Computer fährt herunter in: \n%02d:%02d:%02d",hours, minutes, seconds));
+	                countdownAnzeigen.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #4FC3F7;");
+	                
+	                // VBox/Textfeld sperren/freigeben:
+	                minutenVboxAnzeigenFalse();
+	                uhrzeitVboxAnzeigenFalse();
+	                
+	                // TextLabel sperren/freigeben:
+	                titleLabelAnzeigenFalse();
+	                
+	                // Buttons sperren/freigeben:
+	                startBtnAnzeigenFalse();
+	                abbruchBtnAnzeigenTrue();
+	                	                
+	                // Countdown anzeigen:
+	                countdownAnzeigenTrue();
+	                
+	                zeitLeiste.play();
 
-                	
                 } catch (Exception f) {
                     // Fängt Formatfehler (kein ":") und Textfehler:
 	                Alert alert = new Alert(Alert.AlertType.ERROR, "Bitte gültiges Uhrzeit Format eingeben! hh:mm");
@@ -332,20 +337,12 @@ public class Main extends Application {
 //        | |___ ___ _ _ / /_ _____| | (_)
 //        | / -_) -_) '_/ /\ V / _ \ | |_ 
 //        |_\___\___|_|/_/  \_/\___/_|_(_)                                              
-                
+
+            // wenn beide oder kein Feld ausgefüllt:
         	} else {
-        		try {
-        			
-        			// Block der versucht wird auszuführen:
-        			
-        		} catch (Exception f) {
-                    // Fängt Formatfehler (kein ":") und Textfehler:
-	                Alert alert = new Alert(Alert.AlertType.ERROR, "Bitte gültiges Uhrzeit Format eingeben! hh:mm");
-	                alert.setHeaderText(null);
-	                alert.showAndWait();
-                    return;
-	            }
-	        		
+		        Alert alert = new Alert(Alert.AlertType.ERROR, "Bitte nur ein Feld ausfüllen!");
+		        alert.setHeaderText(null);
+		        alert.showAndWait();	        	
         	}		
         });
 
@@ -356,33 +353,23 @@ public class Main extends Application {
 //       / __ |/ _ \/ _ \/ __/ // / __/ _ \/___/ _  / // / __/ __/ _ \/ _ \_   
 //      /_/ |_/_.__/_.__/_/  \_,_/\__/_//_/   /____/\_,_/\__/\__/\___/_//_(_)  
                                                                              
-        abbruchBtn.setOnAction(e -> {
+        abbruchBtn.setOnAction(aktion -> {
             zeitLeiste.stop();
             restZeitSekunden = 0;
             
             // Textfelder sperren/freigeben:
-            minutenVbox.setVisible(true);
-            minutenVbox.setManaged(true);
-            
-            uhrzeitVbox.setVisible(true);
-            uhrzeitVbox.setManaged(true);
-                        
+            minutenVboxAnzeigenTrue();
+            uhrzeitVboxAnzeigenTrue();
+
             // Buttons sperren/freigeben:
-            startBtn.setVisible(true);
-            startBtn.setManaged(true);
-            
-            abbruchBtn.setVisible(false);
-            abbruchBtn.setManaged(false);
-            
-            pauseBtn.setVisible(false);
-            pauseBtn.setManaged(false);
+            startBtnAnzeigenTrue();
+            abbruchBtnAnzeigenFalse();
+            pauseBtnAnzeigenFalse();
         
-            titleLabel.setVisible(true);
-            titleLabel.setManaged(true);
+            titleLabelAnzeigenTrue();
             
             // Countdown verbergen:
-            countdownAnzeigen.setVisible(false);
-            countdownAnzeigen.setManaged(false);
+            countdownAnzeigenFalse();
                
             // wenn bei Abbruch PauseBtn noch "Fortsetzen" -> ändern zu "Pause":
             if (pauseBtn.getText().equals("Fortsetzen")) {
@@ -398,7 +385,7 @@ public class Main extends Application {
 //       / ___/ _ `/ // (_-</ -_)___/ _  / // / __/ __/ _ \/ _ \_   
 //      /_/   \_,_/\_,_/___/\__/   /____/\_,_/\__/\__/\___/_//_(_)  
 
-        pauseBtn.setOnAction(e -> {        	
+        pauseBtn.setOnAction(aktion -> {        	
         	// Buttons sperren/freigeben:
         	if (pauseBtn.getText().equals("Pause")) {
             	zeitLeiste.pause();
@@ -422,7 +409,7 @@ public class Main extends Application {
         // Abstand zwischen Vertikalen Elementen:
         VBox root = new VBox(15);
         // Hintergrundfarbe der VBox:
-        root.setStyle("-fx-background-color: #00BFFF;");
+        root.setStyle("-fx-background-color: #1E2430;");
         
         // Abstand vom Rand:
         root.setPadding(new Insets(20));
@@ -448,7 +435,16 @@ public class Main extends Application {
     
 //=======================================================================================================================
 
-    // Methode wenn Countdown 0 erreicht:
+//     __  __      _   _               _              
+//    |  \/  |    | | | |             | |           _ 
+//    | \  / | ___| |_| |__   ___   __| | ___ _ __ (_)
+//    | |\/| |/ _ \ __| '_ \ / _ \ / _` |/ _ \ '_ \   
+//    | |  | |  __/ |_| | | | (_) | (_| |  __/ | | |_ 
+//    |_|  |_|\___|\__|_| |_|\___/ \__,_|\___|_| |_(_)
+                                                    
+
+    // ShutDown:
+    
     // Java schickt Befehl direkt an Eingabeaufforderung/Console/Terminal:
     private void sendeShutDown() {
 
@@ -473,7 +469,6 @@ public class Main extends Application {
             befehl = new String[]{"systemctl", "poweroff"};
         }
 
-  
         try {
             // nur ausführen wenn Betriebssystem erkannt wurde:
             if (befehl != null) {
@@ -483,15 +478,91 @@ public class Main extends Application {
                 // beendet das Java-Programm:
                 System.exit(0);
             } else {
-            	System.out.println("Betriebssystem wurde leider nicht erkannt!");
+            	Alert alert = new Alert(Alert.AlertType.ERROR, "unbekanntes Betriebssystem!\nShutdown leider nicht möglich!");
+                alert.setHeaderText(null);
+                alert.show();
             }
-
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+    
+// -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
 
+    // Methoden für Sichtbarkeit der Elemente:
+    
+	private void countdownAnzeigenTrue() {
+        countdownAnzeigen.setVisible(true);
+        countdownAnzeigen.setManaged(true);
+	}
+	private void countdownAnzeigenFalse() {
+        countdownAnzeigen.setVisible(false);
+        countdownAnzeigen.setManaged(false);
+	}
+	
+	
+	private void minutenVboxAnzeigenTrue() {
+        minutenVbox.setVisible(true);
+        minutenVbox.setManaged(true);	
+	}
+	private void minutenVboxAnzeigenFalse() {
+        minutenVbox.setVisible(false);
+        minutenVbox.setManaged(false);	
+	}
+	
+	
+	private void uhrzeitVboxAnzeigenTrue() {
+		uhrzeitVbox.setVisible(true);
+		uhrzeitVbox.setManaged(true);
+	}
+	private void uhrzeitVboxAnzeigenFalse() {
+		uhrzeitVbox.setVisible(false);
+		uhrzeitVbox.setManaged(false);
+	}
+
+
+	private void titleLabelAnzeigenTrue() {
+		titleLabel.setVisible(true);
+		titleLabel.setManaged(true);
+	}
+	private void titleLabelAnzeigenFalse() {
+		titleLabel.setVisible(false);
+		titleLabel.setManaged(false);
+	}
+	
+// -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
+	
+	private void startBtnAnzeigenTrue() {	
+		startBtn.setVisible(true);
+		startBtn.setManaged(true);
+	}
+	private void startBtnAnzeigenFalse() {	
+		startBtn.setVisible(false);
+		startBtn.setManaged(false);
+	}
+	
+	
+	private void pauseBtnAnzeigenTrue() {
+		pauseBtn.setVisible(true);
+	    pauseBtn.setManaged(true);	
+	}
+	private void pauseBtnAnzeigenFalse() {
+		pauseBtn.setVisible(false);
+	    pauseBtn.setManaged(false);	
+	}
+	
+	
+    private void abbruchBtnAnzeigenTrue() {
+    	abbruchBtn.setVisible(true);
+    	abbruchBtn.setManaged(true);
+    }
+    private void abbruchBtnAnzeigenFalse() {
+    	abbruchBtn.setVisible(false);
+    	abbruchBtn.setManaged(false);
+    } 
+    
+    
 //=======================================================================================================================
     
     public static void main(String[] args) {
@@ -499,3 +570,4 @@ public class Main extends Application {
 
 	}
 }
+
