@@ -6,7 +6,7 @@ Ein kleines JavaFX-Programm, das den Computer nach einer eingegebenen Zeit oder 
 
 Praktisch zum Beispiel, wenn du abends noch einen Film am Computer schaust und nicht noch einmal aufstehen möchtest, um den Computer manuell herunterzufahren.
 
-![Programmstart](screenshots/Start.png)
+![Programmstart](Screenshots_md/Start.png)
 
 ## Funktionen
 
@@ -18,20 +18,26 @@ Praktisch zum Beispiel, wenn du abends noch einen Film am Computer schaust und n
   - Blau: mehr als 10 Minuten
   - Gelb: weniger als 10 Minuten
   - Rot: weniger als 2 Minuten
+
+![Farbliche Statusanzeige](Screenshots_md/Farben.png)
+
 - **Pause und Fortsetzen:** Nur im Minuten-Modus möglich.
 - **Abbrechen:** Jederzeit möglich.
 - **Eingabeprüfung:** Fehlermeldung bei ungültigen Werten.
 - **Dunkles Design:** Benutzeroberfläche mit dunklem Farbschema.
 
-![Farbliche Statusanzeige](screenshots/Farben.png)
-
 ## Unterstützte Betriebssysteme
 
-| System | Befehl | Status |
-|:---|:---|:---|
-| Windows | `shutdown -s -f -t 0` | Getestet |
-| Linux | `systemctl poweroff` | Getestet |
-| macOS | `osascript` (System Events) | Ungetestet, macOS fragt eventuell nach einer Berechtigung |
+```text
+
+| -- System | ------------------------ Befehl | --- Status |  
+| - Windows | --- `shutdown -s -f -t 0`       | - Getestet |  
+| --- Linux | ---- `systemctl poweroff`       | - Getestet |  
+| --- macOS | -`osascript` (System Events)    | - Getestet |
+```
+
+
+
 
 Wird das Betriebssystem nicht erkannt, erscheint eine Fehlermeldung und es passiert nichts.
 
@@ -61,8 +67,7 @@ Wird das Betriebssystem nicht erkannt, erscheint eine Fehlermeldung und es passi
 
 - [ ] Enter-Taste startet den Timer.
 - [ ] Styles in eine CSS-Datei auslagern.
-- [ ] Letzte Warnung kurz vor dem Herunterfahren.
-- [ ] Uhrzeit-Modus gegen die echte Systemzeit statt über Ticks berechnen.
+- [ ] Anzeige Uhrzeit wann Gerät herunter fährt.
 
 ## Technik
 
