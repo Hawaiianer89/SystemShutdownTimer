@@ -13,15 +13,15 @@ Praktisch zum Beispiel, wenn du abends noch einen Film am Computer schaust und n
 - **Zwei Eingabearten** (es darf immer nur eines der beiden Felder ausgefüllt sein):
   - **Minuten:** Der PC fährt nach X Minuten herunter (1 bis 1440 Minuten, also maximal 24 Stunden).
   - **Uhrzeit:** Der PC fährt zu einer bestimmten Uhrzeit herunter (Format `hh:mm`). Liegt die Uhrzeit bereits in der Vergangenheit, gilt sie für den nächsten Tag.
-- **Live-Countdown:** Anzeige im Format `hh:mm:ss`, der sofort beim Start sichtbar ist.
+- **Live-Countdown:** Anzeige im Format `hh:mm:ss`, die sofort beim Start sichtbar ist.
 - **Farbwechsel nach Restzeit:** Damit man die verbleibende Zeit auch aus der Ferne einschätzen kann:
 
 
-<div style="display: flex; justify-content: space-around; text-align: center; font-weight: bold; margin-bottom: 10px;">
-    <div style="flex: 1; color: #3498db;">Blau: mehr als 10 Minuten</div>
-    <div style="flex: 1; color: #f1c40f;">Gelb: weniger als 10 Minuten</div>
-    <div style="flex: 1; color: #e74c3c;">Rot: weniger als 2 Minuten</div>
-</div>
+
+   - 🔵 **Blau:** mehr als 10 Minuten
+   - 🟡 **Gelb:** weniger als 10 Minuten
+   - 🔴 **Rot:** weniger als 2 Minuten
+
 
 ![Farbliche Statusanzeige](Screenshots_md/Farben.png)
 
@@ -44,15 +44,14 @@ Wird das Betriebssystem **nicht erkannt**, erscheint eine Fehlermeldung und es p
 
 ## Voraussetzungen
 
-- **Java Development Kit (JDK):** Getestet mit **OpenJDK 26** (mindestens Java 17/21 empfohlen).
-- **JavaFX:** Passend zur JDK-Version eingebunden.
+- **JDK:** getestet mit JDK 26.0.1 (JavaFX 21 benötigt mindestens JDK 17)
+- **JavaFX:** getestet mit 21.0.6
 
 Du kannst deine installierte Java-Version im Terminal mit folgendem Befehl überprüfen:
 
 ```bash
 java -version
 ```
-
 
 ## Starten & Einrichten (Eclipse)
 
@@ -70,14 +69,16 @@ Da JavaFX nicht mehr standardmäßig im JDK enthalten ist, müssen die Bibliothe
 
 
 ### Hinweis zum Projekt-Setup
-Das Projekt ist bewusst **nicht-modular** aufgebaut (ohne `module-info.java`), um Konfigurationskonflikte zu vermeiden. Die JavaFX-JARs werden beim Import in Eclipse automatisch über den Classpath geladen.
+Das Projekt ist bewusst **nicht-modular** aufgebaut (ohne `module-info.java`). Die JavaFX-JARs liegen im Eclipse-**Modulepath**.
 
+### Warnungen in der Konsole
+Beim Start können Warnungen erscheinen, zum Beispiel zu `restricted method` oder `sun.misc.Unsafe`.
+Sie stammen von JavaFX selbst und treten auf, wenn die JDK neuer ist als die JavaFX-Version. Das Programm läuft trotzdem.
+Die erste Warnung lässt sich mit diesem VM-Argument ausblenden (Run Configurations → Arguments → VM arguments):
 
-## Starten
-
-1. Projekt klonen oder herunterladen.
-2. Projekt in einer IDE öffnen (z. B. Eclipse) und JavaFX einbinden.
-3. `Main.java` ausführen.
+```
+--enable-native-access=javafx.graphics
+```
 
 ## Bedienung
 
