@@ -9,6 +9,7 @@ import javafx.animation.Timeline;					// ZeitLeiste,					spielt eine Abfolge von
 import javafx.geometry.Insets;						// Innenabstand,				definiert Ränder (Padding) für Container in Pixeln
 import javafx.geometry.Pos;							// Positionierung,				bestimmt die Ausrichtung von Elementen (z.B. CENTER)
 import javafx.scene.Scene;							// Scene-Klasse,				für den Fensterinhalt
+import javafx.scene.Node;							// Knotenpunkt,					Basisklasse für alle sichtbaren GUI-Elemente in einer Scene
 import javafx.scene.control.*;						// Steuerelemente,				importiert alle GUI-Komponenten -> Buttons, Labels und TextFields
 import javafx.scene.layout.VBox;					// Layout-Klasse,				ordnet GUI-Elemente automatisch vertikal (untereinander)
 import javafx.stage.Stage;							// Bühne,						das eigentliche Windows-Fenster
@@ -115,7 +116,7 @@ public class Main extends Application {
         
         
         // nicht Anzeigen:
-        countdownAnzeigenFalse();
+        sichtbarkeitSetzen(countdownAnzeigen, false);
 
 // -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   
         
@@ -148,8 +149,9 @@ public class Main extends Application {
 
         
         // vorerst nicht benötigte Buttons ausblenden:
-        pauseBtnAnzeigenFalse();
-        abbruchBtnAnzeigenFalse();
+        sichtbarkeitSetzen(pauseBtn, false);
+        sichtbarkeitSetzen(abbruchBtn, false);
+
         
 //=======================================================================================================================
 
@@ -231,19 +233,19 @@ public class Main extends Application {
                 textFormatierung();
                 
                 // VBox/Textfeld sperren/freigeben:
-                minutenVboxAnzeigenFalse();
-                uhrzeitVboxAnzeigenFalse();
+                sichtbarkeitSetzen(minutenVbox, false);
+                sichtbarkeitSetzen(uhrzeitVbox, false);
                 
                 // TextLabel sperren/freigeben:
-                titleLabelAnzeigenFalse();
+                sichtbarkeitSetzen(titleLabel, false);
                 
                 // Buttons sperren/freigeben:
-                startBtnAnzeigenFalse();
-                abbruchBtnAnzeigenTrue();
-                pauseBtnAnzeigenTrue();
+                sichtbarkeitSetzen(startBtn, false);
+                sichtbarkeitSetzen(abbruchBtn, true);
+                sichtbarkeitSetzen(pauseBtn, true);
                 
                 // Countdown anzeigen:
-                countdownAnzeigenTrue();
+                sichtbarkeitSetzen(countdownAnzeigen, true);
                 
                 // Zeitleiste abspielen:
                 zeitLeiste.play();
@@ -299,18 +301,18 @@ public class Main extends Application {
                 textFormatierung();
                 
                 // VBox/Textfeld sperren/freigeben:
-                minutenVboxAnzeigenFalse();
-                uhrzeitVboxAnzeigenFalse();
+                sichtbarkeitSetzen(minutenVbox, false);
+                sichtbarkeitSetzen(uhrzeitVbox, false);
                 
                 // TextLabel sperren/freigeben:
-                titleLabelAnzeigenFalse();
+                sichtbarkeitSetzen(titleLabel, false);
                 
                 // Buttons sperren/freigeben:
-                startBtnAnzeigenFalse();
-                abbruchBtnAnzeigenTrue();
+                sichtbarkeitSetzen(startBtn, false);
+                sichtbarkeitSetzen(abbruchBtn, true);
                 	                
                 // Countdown anzeigen:
-                countdownAnzeigenTrue();
+                sichtbarkeitSetzen(countdownAnzeigen, true);
                 
                 zeitLeiste.play();
 
@@ -349,18 +351,17 @@ public class Main extends Application {
             restZeitSekunden = 0;
             
         // Textfelder ein/ausblenden
-        minutenVboxAnzeigenTrue();
-        uhrzeitVboxAnzeigenTrue();
+        sichtbarkeitSetzen(minutenVbox, true);
+        sichtbarkeitSetzen(uhrzeitVbox, true);
 
         // Buttons ein/ausblenden:
-        startBtnAnzeigenTrue();
-        abbruchBtnAnzeigenFalse();
-        pauseBtnAnzeigenFalse();
-    
-        titleLabelAnzeigenTrue();
-        
+        sichtbarkeitSetzen(startBtn, true);
+        sichtbarkeitSetzen(abbruchBtn, false);
+        sichtbarkeitSetzen(pauseBtn, false);
+        sichtbarkeitSetzen(titleLabel, true);
+
         // Countdown verbergen:
-        countdownAnzeigenFalse();
+        sichtbarkeitSetzen(countdownAnzeigen, false);
            
         // wenn bei Abbruch PauseBtn noch "Fortsetzen" -> ändern zu "Pause":
         if (pauseBtn.getText().equals("Fortsetzen")) {
@@ -481,77 +482,17 @@ public class Main extends Application {
     
 // -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
 
-    // Methoden für Sichtbarkeit der Elemente:
+    // Methode für die Sichtbarkeit und Platzhalter der Elemente:
     
-	private void countdownAnzeigenTrue() {
-        countdownAnzeigen.setVisible(true);
-        countdownAnzeigen.setManaged(true);
+	// Node ist die gemeinsame Oberklasse von Label, Button und VBox. 
+	// -> Dadurch passt die eine Methode für alle Elemente.
+	private void sichtbarkeitSetzen(Node elemente, boolean sichtbarkeit) {
+		
+	    elemente.setVisible(sichtbarkeit);
+	    elemente.setManaged(sichtbarkeit);
+	    
 	}
-	private void countdownAnzeigenFalse() {
-        countdownAnzeigen.setVisible(false);
-        countdownAnzeigen.setManaged(false);
-	}
-	
-	
-	private void minutenVboxAnzeigenTrue() {
-        minutenVbox.setVisible(true);
-        minutenVbox.setManaged(true);	
-	}
-	private void minutenVboxAnzeigenFalse() {
-        minutenVbox.setVisible(false);
-        minutenVbox.setManaged(false);	
-	}
-	
-	
-	private void uhrzeitVboxAnzeigenTrue() {
-		uhrzeitVbox.setVisible(true);
-		uhrzeitVbox.setManaged(true);
-	}
-	private void uhrzeitVboxAnzeigenFalse() {
-		uhrzeitVbox.setVisible(false);
-		uhrzeitVbox.setManaged(false);
-	}
-
-
-	private void titleLabelAnzeigenTrue() {
-		titleLabel.setVisible(true);
-		titleLabel.setManaged(true);
-	}
-	private void titleLabelAnzeigenFalse() {
-		titleLabel.setVisible(false);
-		titleLabel.setManaged(false);
-	}
-	
-// -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
-	
-	private void startBtnAnzeigenTrue() {	
-		startBtn.setVisible(true);
-		startBtn.setManaged(true);
-	}
-	private void startBtnAnzeigenFalse() {	
-		startBtn.setVisible(false);
-		startBtn.setManaged(false);
-	}
-	
-	
-	private void pauseBtnAnzeigenTrue() {
-		pauseBtn.setVisible(true);
-	    pauseBtn.setManaged(true);	
-	}
-	private void pauseBtnAnzeigenFalse() {
-		pauseBtn.setVisible(false);
-	    pauseBtn.setManaged(false);	
-	}
-	
-	
-    private void abbruchBtnAnzeigenTrue() {
-    	abbruchBtn.setVisible(true);
-    	abbruchBtn.setManaged(true);
-    }
-    private void abbruchBtnAnzeigenFalse() {
-    	abbruchBtn.setVisible(false);
-    	abbruchBtn.setManaged(false);
-    } 
+    
     
 // -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -  
     
@@ -614,3 +555,4 @@ public class Main extends Application {
 
 	}
 }
+
